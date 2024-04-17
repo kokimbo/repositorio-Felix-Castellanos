@@ -16,7 +16,7 @@ import java.util.Map;
 @Service
 public class JwtService {
 
-    private static final String KEY = "4865SD881E4H2CS5W6J52MW51XXOP4DS5S6FH2U9WF9J9SVWE25EGV2E9JJ10HBV8E1VS1I95K5JS9H1B5";
+    private static final String KEY = "586E3272357538782F413F4428472B4B6250655368566B597033733676397924";
     public String getToken(UserDetails user) {
         return getToken(new HashMap<>(), user);
     }
@@ -28,7 +28,7 @@ public class JwtService {
                 .setSubject(user.getUsername())
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis()+1000*24*60))
-                .signWith(getKey(), SignatureAlgorithm.RS256)
+                .signWith(getKey(), SignatureAlgorithm.HS256)
                 .compact();
     }
 

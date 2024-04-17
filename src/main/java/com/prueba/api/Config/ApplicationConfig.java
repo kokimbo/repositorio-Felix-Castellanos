@@ -4,6 +4,7 @@ import com.prueba.api.repository.UserRepository;
 import com.prueba.api.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -15,6 +16,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
+@ComponentScan("com.prueba.api")
 @RequiredArgsConstructor
 public class ApplicationConfig {
 
@@ -40,7 +42,7 @@ public class ApplicationConfig {
 
     @Bean
     public UserDetailsService userDetailService() {
-        return username -> userService.findByUsername(username)
+        return username -> userService.findByUser(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
     }
 
