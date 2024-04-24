@@ -8,6 +8,7 @@ import com.prueba.api.repository.UserRepository;
 import com.prueba.api.service.UserService;
 import com.prueba.api.service.impl.UserServiceImpl;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -43,7 +44,7 @@ public class AuthService {
 
     public AuthResponse login(LoginRequest request) {
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword()));
-        UserDetails user = userService.findByUser(request.getUsername()).orElseThrow();  //No entiendo porque pollas sale null
+        User user = userService.findByUser(request.getUsername()).get();  //No entiendo porque pollas sale null
         String token = jwtService.getToken(user);
         return AuthResponse.builder()
                 .token(token)

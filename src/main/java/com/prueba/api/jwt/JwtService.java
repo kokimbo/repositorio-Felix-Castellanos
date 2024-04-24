@@ -17,15 +17,17 @@ import java.util.Map;
 public class JwtService {
 
     private static final String KEY = "586E3272357538782F413F4428472B4B6250655368566B597033733676397924";
-    public String getToken(UserDetails user) {
+    public String getToken(User user) {
         return getToken(new HashMap<>(), user);
     }
 
-    private <K, V> String getToken(Map<String,Object> extraClaims, UserDetails user) {
+    private <K, V> String getToken(Map<String,Object> extraClaims, User user) {
         return Jwts
                 .builder()
                 .setClaims(extraClaims)
-                .setSubject(user.getUsername())
+                .setSubject(user.getProvincia())
+                .setId(user.getUsername())
+                .setIssuer(user.getDni())   //Esto de issuer cuidao
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis()+1000*24*60))
                 .signWith(getKey(), SignatureAlgorithm.HS256)
