@@ -1,6 +1,5 @@
 package com.prueba.api.auth;
 
-import com.prueba.api.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;

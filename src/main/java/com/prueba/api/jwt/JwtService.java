@@ -27,7 +27,7 @@ public class JwtService {
                 .setClaims(extraClaims)
                 .setSubject(user.getProvincia())
                 .setId(user.getUsername())
-                .setIssuer(user.getDni())   //Esto de issuer cuidao
+                .setIssuer(user.getDni())
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis()+1000*24*60))
                 .signWith(getKey(), SignatureAlgorithm.HS256)
