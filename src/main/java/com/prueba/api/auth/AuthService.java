@@ -38,7 +38,7 @@ public class AuthService {
                 .password(passwordEncoder.encode(request.getPassword()))
                 .name(request.getName())
                 .provincia(request.getProvincia())
-                .dni(request.getDni())
+                .email(request.getEmail())
                 .role(Role.ADMIN) //Aqui tengo que añadir mas roles para hacer pruebas      Falta lo de los granted authorities roles y demas
                 .build();
 

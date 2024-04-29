@@ -16,7 +16,7 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     @Override
     public void saveUser(User user) {
-        userRepository.save(user);
+        userRepository.saveAndFlush(user);
     }
 
     @Override
@@ -27,5 +27,12 @@ public class UserServiceImpl implements UserService {
     @Override
     public Optional<User> findById(String id) {
         return userRepository.findById(id);
+    }
+
+    @Override
+    public boolean delete(User user) {
+        userRepository.delete(user);
+        userRepository.flush();
+        return true;
     }
 }

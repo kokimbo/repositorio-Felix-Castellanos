@@ -29,7 +29,7 @@ public class User implements UserDetails {
     String password;
     String name;
     String provincia;
-    String dni;
+    String email;
     @Enumerated(EnumType.STRING)
     Role role;
 

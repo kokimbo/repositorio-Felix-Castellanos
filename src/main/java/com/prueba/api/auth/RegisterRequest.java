@@ -15,5 +15,5 @@ public class RegisterRequest {
     String password;
     String name;
     String provincia;
-    String dni;
+    String email;
 }
