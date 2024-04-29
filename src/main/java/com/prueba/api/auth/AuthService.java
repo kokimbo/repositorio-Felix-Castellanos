@@ -39,7 +39,7 @@ public class AuthService {
                 .name(request.getName())
                 .provincia(request.getProvincia())
                 .dni(request.getDni())
-                .role(Role.USER)
+                .role(Role.ADMIN) //Aqui tengo que añadir mas roles para hacer pruebas      Falta lo de los granted authorities roles y demas
                 .build();
 
         userService.saveUser(user);

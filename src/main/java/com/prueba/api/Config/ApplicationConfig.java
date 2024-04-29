@@ -1,6 +1,5 @@
 package com.prueba.api.Config;
 
-import com.prueba.api.repository.UserRepository;
 import com.prueba.api.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -42,7 +41,7 @@ public class ApplicationConfig {
 
     @Bean
     public UserDetailsService userDetailService() {
-        return username -> userService.findByUser(username)
+            return username -> userService.findByUser(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
     }
 
