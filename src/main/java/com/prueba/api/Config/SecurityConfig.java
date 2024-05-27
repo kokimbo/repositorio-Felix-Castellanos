@@ -30,9 +30,10 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authRequest ->
                         authRequest
                                 .requestMatchers("/auth/**").permitAll()
-                                .requestMatchers("/api/v1/welcome").hasAuthority("USER")
+                                .requestMatchers("/api/v1/welcome").hasAuthority("ADMIN")
                                 .requestMatchers("/api/v1/user/{idUser}").hasAuthority("ADMIN")
                                 .requestMatchers("/api/v1/user").hasAuthority("ADMIN")
+                                .requestMatchers("/img/**").permitAll()
                                 .anyRequest().authenticated()
                 )
                 .sessionManagement(sessionManager -> sessionManager.sessionCreationPolicy(SessionCreationPolicy.STATELESS))

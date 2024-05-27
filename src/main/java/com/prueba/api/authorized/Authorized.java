@@ -2,8 +2,10 @@ package com.prueba.api.authorized;
 
 import com.prueba.api.entity.User;
 import com.prueba.api.entity.dto.UserDTO;
+import com.prueba.api.jwt.JwtService;
 import com.prueba.api.service.UserService;
 import lombok.RequiredArgsConstructor;
+import io.jsonwebtoken.Claims;
 import org.springframework.core.env.Environment;
 import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
@@ -20,12 +22,20 @@ import java.util.Optional;
 public class Authorized {
 
     private final UserService userService;
+    private final JwtService jwtService;
     private final Environment env;
 
-//    @PostMapping(value = "welcome")
-//    public String welcome(@RequestHeader("Authorization") String header){
-//        return header;
-//    }
+    @PostMapping(value = "welcome")
+    public ResponseEntity<?> welcome(@RequestHeader("Authorization") String header){
+        Map<String, Object> response = new HashMap<>();
+
+        Claims claims = jwtService.getClaims(header.substring(7));
+        String prueba = (String) claims.get("idUser");
+
+        response.put("claims", claims);
+
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
 
     @GetMapping(value = "user/{idUser}")
     public ResponseEntity<?> userById(@PathVariable String idUser) {
