@@ -1,33 +1,77 @@
-HELP.md
-target/
-!.mvn/wrapper/maven-wrapper.jar
-!**/src/main/**/target/
-!**/src/test/**/target/
+#---------BACKEND---------
+/Backend/HELP.md
+/Backend/target/
+/Backend/!.mvn/wrapper/maven-wrapper.jar
+/Backend/!**/src/main/**/target/
+/Backend/!**/src/test/**/target/
 
 ### STS ###
-.apt_generated
-.classpath
-.factorypath
-.project
-.settings
-.springBeans
-.sts4-cache
+/Backend/.apt_generated
+/Backend/.classpath
+/Backend/.factorypath
+/Backend/.project
+/Backend/.settings
+/Backend/.springBeans
+/Backend/.sts4-cache
 
 ### IntelliJ IDEA ###
-.idea
-*.iws
-*.iml
-*.ipr
+/Backend/.idea
+/Backend/*.iws
+/Backend/*.iml
+/Backend/*.ipr
 
 ### NetBeans ###
-/nbproject/private/
-/nbbuild/
-/dist/
-/nbdist/
-/.nb-gradle/
-build/
-!**/src/main/**/build/
-!**/src/test/**/build/
+/Backend/nbproject/private/
+/Backend/nbbuild/
+/Backend/dist/
+/Backend/nbdist/
+/Backend/.nb-gradle/
+/Backend/build/
+/Backend/!**/src/main/**/build/
+/Backend/!**/src/test/**/build/
 
 ### VS Code ###
-.vscode/
+/Backend/.vscode/
+
+
+#---------FRONTEND---------
+# Compiled output
+/Frontend/dist
+/Frontend/tmp
+/Frontend/out-tsc
+/Frontend/bazel-out
+
+# Node
+/Frontend/node_modules
+/Frontend/npm-debug.log
+/Frontend/yarn-error.log
+
+# IDEs and editors
+/Frontend/.idea/
+/Frontend/.project
+/Frontend/.classpath
+/Frontend/.c9/
+/Frontend/*.launch
+/Frontend/.settings/
+/Frontend/*.sublime-workspace
+
+# Visual Studio Code
+/Frontend/.vscode/*
+/Frontend/!.vscode/settings.json
+/Frontend/!.vscode/tasks.json
+/Frontend/!.vscode/launch.json
+/Frontend/!.vscode/extensions.json
+/Frontend/.history/*
+
+# Miscellaneous
+/Frontend/.angular/cache
+/Frontend/.sass-cache/
+/Frontend/connect.lock
+/Frontend/coverage
+/Frontend/libpeerconnection.log
+/Frontend/testem.log
+/Frontend/typings
+
+# System files
+/Frontend/.DS_Store
+/Frontend/Thumbs.db
