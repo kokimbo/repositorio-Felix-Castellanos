@@ -1,0 +1,16 @@
+@import "bootstrap/scss/functions";
+@import "bootstrap/scss/mixins";
+@import "bootstrap/scss/variables";
+
+.size-md{
+ font-size: 1.5rem;
+
+  &:hover{
+    color:rgba(255, 255, 255, 0.7) !important;
+  }
+}
+
+::ng-deep footer{
+  background-color: rgba($dark,0.8);
+  backdrop-filter: blur(3px);
+}

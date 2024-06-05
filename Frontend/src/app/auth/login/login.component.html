@@ -1,1 +1,32 @@
-<p>login works!</p>
+<div class="background-container"></div>
+<div class="container login d-flex flex-column gap-4 justify-content-center p-5 ">
+  <div class="d-flex flex-column align-items-center justify-content-center p-5">
+
+    <p-card [styleClass]="'d-flex gap-4 justify-content-center align-items-stretch rounded-4 shadow-lg'" >
+      <form class="d-flex flex-column justify-content-center align-items-center gap-4" action="">
+        <h2 class="text-center fw-bolder">Bienvenido a BearGym</h2>
+        <h6 class="text-body-secondary">Login</h6>
+        <p-iconField iconPosition="left">
+          <p-inputIcon styleClass="pi pi-user"/>
+          <input type="text" pInputText [(ngModel)]="username" [ngModelOptions]="{standalone: true}" placeholder="Username" />
+        </p-iconField>
+
+        <p-iconField iconPosition="left">
+          <p-inputIcon styleClass="pi pi-key" />
+          <input type="password"
+                 [(ngModel)]="password"
+                 [ngModelOptions]="{standalone: true}"
+                 placeholder="Password"
+                 pInputText />
+        </p-iconField>
+
+
+      </form>
+        <div class="w-100 mt-5">
+          <p-button label="Login" styleClass="w-100 rounded mb-3" size="small" icon="pi pi-user" [outlined]="true"></p-button>
+          <a  routerLink="/registro">¿Aún no te has registrado? Hazlo aquí</a>
+        </div>
+    </p-card>
+
+  </div>
+</div>

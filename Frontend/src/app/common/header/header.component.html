@@ -1,1 +1,23 @@
-<p>header works!</p>
+<header class="d-flex justify-content-between align-items-center px-5  sticky-top z-3">
+  <div class="d-flex align-items-center">
+    <a href="#">
+      <img ngSrc="assets/logo.png" class="img-fluid" alt="Error" height="80" width="80">
+    </a>
+    <h2 class="mb-0 glitch position-relative" [routerLink]="'/home'" data-glitch="BearGym">BearGym</h2>
+  </div>
+  @if (!isLogged){
+    <div class="">
+      <p-button label="Login" routerLink="/login" size="small" styleClass="shadow-sm rounded"  class="me-3"></p-button>
+      <p-button label="Registro" routerLink="/registro" size="small" styleClass="shadow-sm rounded special-button" [outlined]="true"></p-button>
+    </div>
+  } @else {
+    <div>
+      <p-avatar styleClass="me-lg-4" image="assets/kike.jpeg"
+                pBadge
+                value="4"
+                severity="danger"
+      />
+      <p-button label="Cerrar sesion" (onClick)="isLogged=false" [badgeClass]="'dark'" size="small" styleClass="shadow-sm rounded-pill special-button" [outlined]="true"></p-button>
+    </div>
+  }
+</header>

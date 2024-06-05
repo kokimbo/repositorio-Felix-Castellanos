@@ -1,14 +1,28 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import {RouterLink, RouterOutlet} from '@angular/router';
+import { CommonModule } from '@angular/common';
 import { FooterComponent } from './common/footer/footer.component';
+import { PrimeNGConfig } from 'primeng/api';
+import {HeaderComponent} from "./common/header/header.component";
+import {LandingComponent} from "./pages/landing/landing.component";
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, FooterComponent],
+  imports: [CommonModule ,RouterOutlet, FooterComponent, HeaderComponent, LandingComponent, RouterLink],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
 export class AppComponent {
   title = 'Frontend';
+
+  private primengConfig: PrimeNGConfig;
+
+  constructor(primengConfig: PrimeNGConfig) {
+    this.primengConfig = primengConfig;
+  }
+
+    ngOnInit() {
+        this.primengConfig.ripple = true;
+    }
 }

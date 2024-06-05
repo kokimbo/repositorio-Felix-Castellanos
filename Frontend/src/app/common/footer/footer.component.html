@@ -1,37 +1,89 @@
-<div class="card">
-    <p-dataView >
-        <ng-template pTemplate="list" let-products>
-            <div class="row no-gutters">
-                <div class="col-12" >
-                    <div class="d-flex flex-column flex-sm-row align-items-sm-center p-4 gap-3" >
-                        <div class="col-md-2 position-relative">
-                            <img class="d-block mx-auto rounded w-100" [src]="'https://i.blogs.es/eaa4a5/tamanoimageniv/1366_2000.webp'" />
-                            
-                        </div>
-                        <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center flex-grow-1 gap-4">
-                            <div class="d-flex flex-row flex-md-column justify-content-between align-items-start gap-2">
-                                <div>
-                                    <span class="font-weight-medium text-secondary small">Categoria</span>
-                                    <div class="h5 font-weight-medium mt-2">Zapatillas</div>
-                                </div>
-                                <div class="bg-light p-1 rounded-circle">
-                                    <div class="bg-white d-flex align-items-center gap-2 justify-content-center py-1 px-2 rounded-pill shadow-sm">
-                                        <span class="text-dark font-weight-medium small">4</span>
-                                        <i class="pi pi-star-fill text-warning"></i>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="d-flex flex-column align-items-md-end gap-5">
-                                <span class="h4 font-weight-bold text-dark">{{ '$' + 20 }}</span>
-                                <div class="d-flex flex-row-reverse flex-md-row gap-2">
-                                    <p-button icon="pi pi-heart" [outlined]="true" />
-                                    <p-button icon="pi pi-shopping-cart" class="flex-grow-1 flex-md-grow-0 white-space-nowrap" label="Buy Now" />
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </ng-template>
-    </p-dataView>
-</div>
+<footer class="w-100  d-flex justify-content-center border-top">
+  <div class="w-75 row row-cols-1 row-cols-sm-2 row-cols-md-5 py-3 my-3">
+    <div class="col d-flex flex-column justify-content-between mb-3">
+      <a href="/" class="d-flex align-items-center mb-3 link-body-emphasis text-decoration-none">
+        <img ngSrc="assets/logo.png" height="90" width="90" alt="Error">
+      </a>
+      <div class="d-flex">
+        <a href="https://www.x.com"><i class="pi pi-twitter text-white-50 size-md mx-2"></i></a>
+        <a href="https://www.instagram.com/felixzx_"><i class="pi pi-instagram text-white-50 size-md mx-2"></i></a>
+        <a href="https://www.facebook.com"><i class="pi pi-facebook text-white-50 size-md mx-2"></i></a>
+        <a href="https://www.linkedin.com"><i class="pi pi-linkedin text-white-50 size-md mx-2"></i></a>
+      </div>
+    </div>
+
+    <div class="col mb-3"></div>
+
+    <div class="col mb-3">
+      <h5>Section</h5>
+      <ul class="nav flex-column">
+        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">Home</a></li>
+        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">Features</a></li>
+        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">Pricing</a></li>
+        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">FAQs</a></li>
+        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">About</a></li>
+      </ul>
+    </div>
+
+    <div class="col mb-3">
+      <h5>Section</h5>
+      <ul class="nav flex-column">
+        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">Home</a></li>
+        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">Features</a></li>
+        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">Pricing</a></li>
+        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">FAQs</a></li>
+        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">About</a></li>
+      </ul>
+    </div>
+
+    <div class="col mb-3">
+      <h5>Section</h5>
+      <ul class="nav flex-column">
+        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">Home</a></li>
+        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">Features</a></li>
+        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">Pricing</a></li>
+        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">FAQs</a></li>
+        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">About</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+
+<!-- DATA VIEW DE EJEMPLO -->
+<!--<div class="card">-->
+<!--    <p-dataView >-->
+<!--        <ng-template pTemplate="list" let-products>-->
+<!--            <div class="row no-gutters">-->
+<!--                <div class="col-12" >-->
+<!--                    <div class="d-flex flex-column flex-sm-row align-items-sm-center p-4 gap-3" >-->
+<!--                        <div class="col-md-2 position-relative">-->
+<!--                            <img class="d-block mx-auto rounded w-100" [src]="'https://i.blogs.es/eaa4a5/tamanoimageniv/1366_2000.webp'" />-->
+
+<!--                        </div>-->
+<!--                        <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center flex-grow-1 gap-4">-->
+<!--                            <div class="d-flex flex-row flex-md-column justify-content-between align-items-start gap-2">-->
+<!--                                <div>-->
+<!--                                    <span class="font-weight-medium text-secondary small">Categoria</span>-->
+<!--                                    <div class="h5 font-weight-medium mt-2">Zapatillas</div>-->
+<!--                                </div>-->
+<!--                                <div class="bg-light p-1 rounded-circle">-->
+<!--                                    <div class="bg-white d-flex align-items-center gap-2 justify-content-center py-1 px-2 rounded-pill shadow-sm">-->
+<!--                                        <span class="text-dark font-weight-medium small">4</span>-->
+<!--                                        <i class="pi pi-star-fill text-warning"></i>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                            <div class="d-flex flex-column align-items-md-end gap-5">-->
+<!--                                <span class="h4 font-weight-bold text-dark">{{ '$' + 20 }}</span>-->
+<!--                                <div class="d-flex flex-row-reverse flex-md-row gap-2">-->
+<!--                                    <p-button icon="pi pi-heart" [outlined]="true"/>-->
+<!--                                    <p-button icon="pi pi-shopping-cart" class="flex-grow-1 flex-md-grow-0 white-space-nowrap" label="Buy Now"/>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </ng-template>-->
+<!--    </p-dataView>-->
+<!--</div>-->
