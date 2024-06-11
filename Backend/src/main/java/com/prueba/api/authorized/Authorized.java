@@ -17,7 +17,8 @@ import java.util.Map;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/v1")
+@RequestMapping("/api/v1/user")
+@CrossOrigin(origins = "${app.cors.allowedOrigin}")
 @RequiredArgsConstructor
 public class Authorized {
 
@@ -37,7 +38,7 @@ public class Authorized {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-    @GetMapping(value = "user/{idUser}")
+    @GetMapping(value = "{idUser}")
     public ResponseEntity<?> userById(@PathVariable String idUser) {
         Optional<User> optUser = userService.findById(idUser);
 
@@ -55,7 +56,7 @@ public class Authorized {
     }
 
     //Cuando el delete es exitoso, tengo que devolver una respuesta, no un objeto
-    @DeleteMapping(value = "user/{idUser}")
+    @DeleteMapping(value = "{idUser}")
     public ResponseEntity<?> delete(@PathVariable String idUser) {
         Optional<User> optUser = userService.findById(idUser);
 
@@ -71,7 +72,7 @@ public class Authorized {
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
-    @PutMapping(value = "user")
+    @PutMapping()
     public ResponseEntity<?> update(@RequestBody UserDTO userBody) {
         Optional<User> optUser = userService.findById(userBody.getId());
 
@@ -85,7 +86,6 @@ public class Authorized {
         User user = optUser.get();
 
         user.setEmail(userBody.getEmail());
-        user.setProvincia(userBody.getProvincia());
         user.setName(userBody.getName());
         user.setUsername(userBody.getUsername());
 

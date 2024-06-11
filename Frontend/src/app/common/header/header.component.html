@@ -12,12 +12,44 @@
     </div>
   } @else {
     <div>
-      <p-avatar styleClass="me-lg-4" image="assets/kike.jpeg"
-                pBadge
-                value="4"
-                severity="danger"
-      />
-      <p-button label="Cerrar sesion" (onClick)="isLogged=false" [badgeClass]="'dark'" size="small" styleClass="shadow-sm rounded-pill special-button" [outlined]="true"></p-button>
+      <a href="#">
+        <p-chip
+          styleClass="me-4 shadow-lg"
+          label="Pepito"
+          image="assets/kike.jpeg"
+          alt="Avatar image"
+          pBadge value="4" />
+      </a>
+      <p-button label="Cerrar sesion" (click)="confirmar()" [badgeClass]="'dark'" size="small" styleClass="shadow-sm rounded-pill special-button" [outlined]="true"></p-button>
     </div>
   }
 </header>
+<p-toast />
+<p-confirmDialog #cd>
+  <ng-template pTemplate="headless" let-message>
+
+    <div class="d-flex flex-column align-items-center p-5 bg-dark border-opacity-25 border-secondary rounded">
+      <div class="rounded-circle d-flex justify-content-center align-items-center" style="height: 6rem; width: 6rem; background-color: #c298d8">
+        <i class="pi pi-question" style="font-size: 3rem; color: black;"></i>
+      </div>
+      <h3 class="fw-bold  mt-4">
+                {{ message.header }}
+      </h3>
+      <p class="mb-0 text-body-tertiary">{{ message.message }}</p>
+      <div class="d-flex align-items-center gap-2 mt-4">
+        <p-button
+          styleClass="rounded shadow"
+          (click)="cd.accept()">
+          Cerrar
+        </p-button>
+        <p-button
+          styleClass="rounded shadow"
+          [outlined]="true"
+          (click)="cd.reject()">
+          Cancelar
+        </p-button>
+      </div>
+    </div>
+
+  </ng-template>
+</p-confirmDialog>

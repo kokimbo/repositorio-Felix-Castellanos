@@ -3,36 +3,125 @@
   <div class="d-flex flex-column align-items-center justify-content-center p-5">
 
     <p-card [styleClass]="'d-flex gap-4 justify-content-center align-items-stretch rounded-4 shadow-lg'" >
-      <form class="d-flex flex-column justify-content-center align-items-center gap-4" action="">
+      <p-toast />
+      <form [formGroup]="registrarForm" class="d-flex flex-column justify-content-center align-items-center gap-4" action="">
         <h2 class="text-center fw-bolder">Bienvenido a BearGym</h2>
         <h6 class="text-body-secondary">Registro</h6>
         <p-iconField iconPosition="left">
           <p-inputIcon styleClass="pi pi-at"/>   <!--email-->
-          <input type="text" pInputText [(ngModel)]="username" [ngModelOptions]="{standalone: true}" placeholder="Email" />
+          <input formControlName="email" type="text" pInputText placeholder="Email" />
+          <i class="pi pi-check-circle alerta-positiva"></i>
+          <i class="pi pi-exclamation-circle alerta-negativa"></i>
         </p-iconField>
+
+        @if (email?.invalid && (email?.dirty || email?.touched)){
+          <div class="text-danger">
+
+            @if (email?.hasError('required')){
+              <p>Este campo es obligatorio</p>
+            }
+
+            @if (email?.hasError('email')){
+              <p>Debe de ser un email</p>
+            }
+
+            @if (email?.hasError('minlength')){
+              <p>Como mínimo tu email debe tener 12 caracteres</p>
+            }
+
+            @if (email?.hasError('maxlength')){
+              <p>Como máximo tu email puede tener 70 caracteres</p>
+            }
+            <!--            Aqui iran mas validaciones como que ese username no esta referenciado en la base de datos     -->
+          </div>
+        }
 
         <p-iconField iconPosition="left">
           <p-inputIcon styleClass="pi pi-user"/>
-          <input type="text" pInputText [(ngModel)]="username" [ngModelOptions]="{standalone: true}" placeholder="Username" />
+          <input type="text" pInputText formControlName="username" placeholder="Username" />
+          <i class="pi pi-check-circle alerta-positiva"></i>
+          <i class="pi pi-exclamation-circle alerta-negativa"></i>
         </p-iconField>
+
+        @if (username?.invalid && (username?.dirty || username?.touched)){
+          <div class="text-danger">
+
+            @if (username?.hasError('minlength')){
+              <p>Como minimo tu username debe tener 4 caracteres</p>
+            }
+
+            @if (username?.hasError('maxlength')){
+              <p>Como maximo tu username puede tener 30 caracteres</p>
+            }
+
+            @if (username?.hasError('required')){
+              <p>Este campo es obligatorio</p>
+            }
+
+            <!--            Aqui iran mas validaciones como que ese username no esta referenciado en la base de datos     -->
+          </div>
+        }
 
         <p-iconField iconPosition="left">
           <p-inputIcon styleClass="pi pi-key" />
           <input type="password"
-                 [(ngModel)]="password"
-                 [ngModelOptions]="{standalone: true}"
+                 formControlName="password"
                  placeholder="Password"
                  pInputText />
+          <i class="pi pi-check-circle alerta-positiva"></i>
+          <i class="pi pi-exclamation-circle alerta-negativa"></i>
         </p-iconField>
+
+        @if (password?.invalid && (password?.dirty || password?.touched)){
+          <div class="text-danger">
+
+            @if (password?.hasError('required')){
+              <p>Este campo es obligatorio</p>
+            }
+
+            @if (password?.hasError('minlength')){
+              <p>Como mínimo tu password debe tener 8 caracteres</p>
+            }
+
+            @if (password?.hasError('maxlength')){
+              <p>Como máximo tu password puede tener 50 caracteres</p>
+            }
+
+            @if (password?.hasError('pattern')){
+              <p>Debe tener mayusculas, minusculas, [$·%!.-,] y numeros</p>
+            }
+            <!--            Aqui iran mas validaciones como que ese username no esta referenciado en la base de datos     -->
+          </div>
+        }
 
         <p-iconField iconPosition="left">
           <p-inputIcon styleClass="pi pi-address-book"/> <!--name-->
-          <input type="text" pInputText [(ngModel)]="username" [ngModelOptions]="{standalone: true}" placeholder="Nombre" />
+          <input type="text" pInputText formControlName="nombre" placeholder="Nombre" />
+          <i class="pi pi-check-circle alerta-positiva"></i>
+          <i class="pi pi-exclamation-circle alerta-negativa"></i>
         </p-iconField>
+
+        @if (nombre?.invalid && (nombre?.dirty || nombre?.touched)){
+        <div class="text-danger">
+
+          @if (nombre?.hasError('required')){
+            <p>Este campo es obligatorio</p>
+          }
+
+          @if (nombre?.hasError('minlength')){
+            <p>Como mínimo tu nombre debe tener 4 caracteres</p>
+          }
+
+          @if (nombre?.hasError('maxlength')){
+            <p>Como máximo tu nombre puede tener 50 caracteres</p>
+          }
+        <!--            Aqui iran mas validaciones como que ese username no esta referenciado en la base de datos     -->
+      </div>
+        }
 
       </form>
       <div class="w-100 mt-5">
-        <p-button label="Registrarse" styleClass="w-100 rounded" size="small" icon="pi pi-user" [outlined]="true"></p-button>
+        <p-button (click)="registrar()" label="Registrarse" styleClass="w-100 rounded" size="small" icon="pi pi-user" [outlined]="true"></p-button>
       </div>
     </p-card>
 

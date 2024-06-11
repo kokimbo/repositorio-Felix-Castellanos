@@ -23,7 +23,6 @@ public class UserDTO {
                 .username(user.getUsername())
                 .email(user.getEmail())
                 .name(user.getName())
-                .provincia(user.getProvincia())
                 .build();
     }
 }

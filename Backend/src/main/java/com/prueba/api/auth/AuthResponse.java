@@ -11,6 +11,4 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class AuthResponse {
     private String token;
-    private String err_exist;
-    private String err_password;
 }

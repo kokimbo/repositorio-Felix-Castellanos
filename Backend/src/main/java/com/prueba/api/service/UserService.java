@@ -9,4 +9,5 @@ public interface UserService {
     Optional<User> findByUser(String userName);
     Optional<User> findById(String id);
     boolean delete(User user);
+    Optional<User> findByUserEmail(String email);
 }

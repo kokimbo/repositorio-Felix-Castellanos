@@ -4,3 +4,58 @@
 @import "primeng/resources/primeng.css";
 @import "primeicons/primeicons.css";
 
+@keyframes vibrate {
+  0% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-2px);
+  }
+  50% {
+    transform: translateX(2px);
+  }
+  75% {
+    transform: translateX(-2px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+.p-icon-field-left > input{
+  padding-right: 30px;
+}
+
+.ng-invalid:not(form).ng-touched,
+.ng-invalid:not(form).ng-dirty{
+  border-color: $red-500;
+  ~ .alerta-negativa {
+    display: inline;
+    animation: vibrate 0.3s linear;
+  }
+  animation: vibrate 0.3s linear;
+}
+
+.ng-valid:not(form).ng-touched,
+.ng-valid:not(form).ng-dirty{
+  border-color: $green-500;
+  ~ .alerta-positiva {
+    display: inline;
+  }
+}
+
+.alerta-negativa{
+  position: absolute;
+  top: 2px;
+  right: 15px;
+  color: $red-400;
+  display:none;
+}
+
+.alerta-positiva{
+  position: absolute;
+  top: 2px;
+  right: 15px;
+  color: $green-400;
+  display:none;
+}

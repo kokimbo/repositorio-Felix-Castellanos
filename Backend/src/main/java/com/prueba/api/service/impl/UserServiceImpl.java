@@ -35,4 +35,9 @@ public class UserServiceImpl implements UserService {
         userRepository.flush();
         return true;
     }
+
+    @Override
+    public Optional<User> findByUserEmail(String email) {
+        return userRepository.findByEmail(email);
+    }
 }

@@ -6,6 +6,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -30,9 +31,9 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authRequest ->
                         authRequest
                                 .requestMatchers("/auth/**").permitAll()
+                                .requestMatchers(HttpMethod.GET).permitAll()
+                                .requestMatchers(HttpMethod.OPTIONS).permitAll()
                                 .requestMatchers("/api/v1/welcome").hasAuthority("ADMIN")
-                                .requestMatchers("/api/v1/user/{idUser}").hasAuthority("ADMIN")
-                                .requestMatchers("/api/v1/user").hasAuthority("ADMIN")
                                 .requestMatchers("/img/**").permitAll()
                                 .anyRequest().authenticated()
                 )
