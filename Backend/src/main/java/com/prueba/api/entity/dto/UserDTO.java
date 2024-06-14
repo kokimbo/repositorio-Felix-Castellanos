@@ -14,8 +14,8 @@ public class UserDTO {
     private String id;
     private String username;
     private String email;
-    private String provincia;
     private String name;
+    private String foto;
 
     public static UserDTO userToDto(User user){
         return UserDTO.builder()
@@ -23,6 +23,7 @@ public class UserDTO {
                 .username(user.getUsername())
                 .email(user.getEmail())
                 .name(user.getName())
+                .foto(user.getFoto())
                 .build();
     }
 }

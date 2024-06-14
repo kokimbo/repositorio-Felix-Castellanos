@@ -30,6 +30,7 @@ public class User implements UserDetails {
     String name;
     @Column(nullable = false, unique = true)
     String email;
+    String foto;
     @Enumerated(EnumType.STRING)
     Role role;
 

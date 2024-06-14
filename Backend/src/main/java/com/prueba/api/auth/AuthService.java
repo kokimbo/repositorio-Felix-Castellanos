@@ -2,6 +2,7 @@ package com.prueba.api.auth;
 
 
 import com.prueba.api.entity.Role;
+import com.prueba.api.entity.dto.UserDTO;
 import com.prueba.api.jwt.JwtService;
 import com.prueba.api.entity.User;
 import com.prueba.api.service.UserService;
@@ -27,23 +28,28 @@ public class AuthService {
 
 
 
-    public AuthResponse register(RegisterRequest request) {
+    public AuthResponse register(RegisterRequest request, String foto) {
         if(userService.findByUser(request.username).isPresent() || userService.findByUserEmail(request.email).isPresent()){
             return AuthResponse.builder()
                     .token(null)
                     .build();
         }
+
         User user = User.builder()
                 .username(request.getUsername())
                 .password(passwordEncoder.encode(request.getPassword()))
                 .name(request.getName())
                 .email(request.getEmail())
-                .role(Role.USER) //Aqui tengo que añadir mas roles para hacer pruebas      Falta lo de los granted authorities roles y demas
+                .foto(foto)
+                .role(Role.USER)
                 .build();
+
+        UserDTO userDTO = UserDTO.userToDto(user);
 
         userService.saveUser(user);
         return AuthResponse.builder()
                 .token(jwtService.getToken(user))
+                .userSession(userDTO)
                 .build();
     }
 
@@ -57,9 +63,11 @@ public class AuthService {
         try{
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword()));
             User user = userOpt.get();  //No entiendo porque pollas sale null
+            UserDTO userDTO = UserDTO.userToDto(user);
             String token = jwtService.getToken(user);
             return AuthResponse.builder()
                     .token(token)
+                    .userSession(userDTO)
                     .build();
         }catch (AuthenticationException e){
             System.out.println("Error -> "+e.getMessage());
