@@ -1,6 +1,7 @@
 export interface RegistroInterface {
-  email: string;
-  password: string;
-  nombre: string;
-  username: string;
+  username: string | undefined | null;
+  password: string | undefined | null;
+  name: string | undefined | null;
+  email: string | undefined | null;
+
 }

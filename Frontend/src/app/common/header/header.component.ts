@@ -10,6 +10,7 @@ import {ConfirmationService, MessageService} from "primeng/api";
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import {ToastModule} from "primeng/toast";
 import {ChipModule} from "primeng/chip";
+import {environment} from "../../../environments/environment";
 
 @Component({
   selector: 'app-header',
@@ -23,6 +24,7 @@ export class HeaderComponent implements OnInit{
 
   isLogged: Boolean = false;
   userData?: String;
+  protected sessionUser?: UserInterface | null
 
   constructor(private loginService: LoginService, private confirmationService: ConfirmationService, private messageService: MessageService, private router: Router) { }
 
@@ -39,7 +41,7 @@ export class HeaderComponent implements OnInit{
       accept: () => {
         this.messageService.add({ severity: 'error', summary: '¡Adiós!', detail: 'Has cerrado sesion', life: 3000 });
         this.loginService.logout();
-        this.router.navigateByUrl('/landing');
+        this.router.navigateByUrl('/login');
       },
       reject: () => {
         this.messageService.add({ severity: 'success', summary: '¡Te has quedado!', detail: 'Has cancelado cerrar la sesion', life: 3000 });
@@ -63,5 +65,14 @@ export class HeaderComponent implements OnInit{
         }
       }
     )
+    this.loginService.sessionUser.subscribe(
+      {
+        next:(sessionUser) => {
+          this.sessionUser = sessionUser;
+        }
+      }
+    )
   }
+
+  protected readonly environment = environment;
 }

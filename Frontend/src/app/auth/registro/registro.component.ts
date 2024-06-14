@@ -7,13 +7,16 @@ import {InputIconModule} from "primeng/inputicon";
 import {InputTextModule} from "primeng/inputtext";
 import {PaginatorModule} from "primeng/paginator";
 import {Router} from "@angular/router";
-import {UserService} from "../../services/user/user.service";
-import {UserInterface} from "../../services/user/user-interface";
-import {LoginInterface} from "../../services/auth/authService/login-interface";
 import {RegistroInterface} from "../../services/auth/authService/registro-interface";
 import {LoginService} from "../../services/auth/authService/login.service";
 import {MessageService} from "primeng/api";
 import {ToastModule} from "primeng/toast";
+import {FileSelectEvent, FileUploadEvent, FileUploadModule} from "primeng/fileupload";
+
+// interface UploadEvent {
+//   originalEvent: Event;
+//   files: File[];
+// }
 
 @Component({
   selector: 'app-registro',
@@ -27,7 +30,8 @@ import {ToastModule} from "primeng/toast";
     InputTextModule,
     PaginatorModule,
     ReactiveFormsModule,
-    ToastModule
+    ToastModule,
+    FileUploadModule
   ],
   providers: [MessageService],
   templateUrl: './registro.component.html',
@@ -36,11 +40,29 @@ import {ToastModule} from "primeng/toast";
 
 export class RegistroComponent {
 
+  selectedFile: File | null = null;
+
+  constructor(private formBuilder: FormBuilder, private router: Router, private loginService: LoginService, private messageService: MessageService) {
+    if (loginService.isAuthenticated()){
+      router.navigate(['/landing'])
+    }
+  }
+
+  // uploadedFiles: any[] = [];
+  //
+  // onUpload(event: FileUploadEvent) {
+  //   for(let file of event.files) {
+  //     this.uploadedFiles.push(file);
+  //   }
+  //   this.messageService.add({severity: 'info', summary: 'File Uploaded', detail: ''});
+
+  // }
+
   registrarForm = this.formBuilder.group({
     email: ['', [Validators.required, Validators.email, Validators.minLength(12), Validators.maxLength(70)]],
     username: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(30)]],
     password: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(50), Validators.pattern(/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[^\w\s]).*$/)]],
-    nombre: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(50)]],
+    name: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(50)]],
   })
 
   get username(){
@@ -55,8 +77,8 @@ export class RegistroComponent {
     return this.registrarForm.get('email');
   }
 
-  get nombre(){
-    return this.registrarForm.get('nombre');
+  get name(){
+    return this.registrarForm.get('name');
   }
 
   showError(detail: string = 'Vuelva a intentarlo') {
@@ -69,7 +91,19 @@ export class RegistroComponent {
 
   registrar(){
     if(this.registrarForm.valid){
-      this.loginService.registro(this.registrarForm.value as RegistroInterface).subscribe(
+      const formData: FormData = new FormData();
+      if (this.selectedFile) {
+        formData.append('file', this.selectedFile);
+      }
+      const registroData: RegistroInterface = {
+        username: this.registrarForm.get('username')?.value,
+        password: this.registrarForm.get('password')?.value,
+        name: this.registrarForm.get('name')?.value,
+        email: this.registrarForm.get('email')?.value,
+      };
+      
+      formData.append('registro', JSON.stringify(registroData));
+      this.loginService.registro(formData).subscribe(
         {
           next: (data) => {
             console.log(data)
@@ -78,7 +112,7 @@ export class RegistroComponent {
             this.showError(error);
           },
           complete: () => {
-            console.log('Login completado');
+            console.log('Registro completado');
             this.router.navigateByUrl('/landing');
             this.registrarForm.reset();
             this.showSuccess();
@@ -90,29 +124,11 @@ export class RegistroComponent {
     }
   }
 
-  // login(){
-  //   if(this.loginForm.valid){
-  //     this.loginService.login(this.loginForm.value as LoginInterface).subscribe({
-  //       next: (data) => {
-  //         console.log(data)
-  //       },
-  //       error: (error) => {
-  //         this.showError();
-  //         console.log(error)
-  //       },
-  //       complete: () => {
-  //         console.log('Login completado');
-  //         this.router.navigateByUrl('/landing');
-  //         this.loginForm.reset();
-  //         this.showSuccess();
-  //       }
-  //     });
-  //
-  //   }else {
-  //     this.loginForm.markAllAsTouched();
-  //   }
-
-  constructor(private formBuilder: FormBuilder, private router: Router, private loginService: LoginService, private messageService: MessageService) { }
-
-
+  seleccionaFile(event: FileSelectEvent) {
+    const file = event.files[0];
+    console.log(file.name)
+    if (file) {
+      this.selectedFile = file;
+    }
+  }
 }

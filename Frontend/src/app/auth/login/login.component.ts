@@ -42,7 +42,12 @@ export class LoginComponent {
     password: ['', Validators.required],
   })
 
-  constructor(private formBuilder: FormBuilder, private router: Router, private loginService: LoginService, private messageService: MessageService) { }
+  constructor(private formBuilder: FormBuilder, private router: Router, private loginService: LoginService, private messageService: MessageService) {
+    //Esto de aqui tendria que ser con un guard
+    if (loginService.isAuthenticated()){
+      router.navigate(['/landing'])
+    }
+  }
 
   get username(){
     return this.loginForm.get('username');

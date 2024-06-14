@@ -4,7 +4,7 @@
 
     <p-card [styleClass]="'d-flex gap-4 justify-content-center align-items-stretch rounded-4 shadow-lg'" >
       <p-toast />
-      <form [formGroup]="registrarForm" class="d-flex flex-column justify-content-center align-items-center gap-4" action="">
+      <form [formGroup]="registrarForm" class="d-flex flex-column justify-content-center align-items-center gap-4"  enctype="multipart/form-data">
         <h2 class="text-center fw-bolder">Bienvenido a BearGym</h2>
         <h6 class="text-body-secondary">Registro</h6>
         <p-iconField iconPosition="left">
@@ -96,29 +96,53 @@
 
         <p-iconField iconPosition="left">
           <p-inputIcon styleClass="pi pi-address-book"/> <!--name-->
-          <input type="text" pInputText formControlName="nombre" placeholder="Nombre" />
+          <input type="text" pInputText formControlName="name" placeholder="Nombre" />
           <i class="pi pi-check-circle alerta-positiva"></i>
           <i class="pi pi-exclamation-circle alerta-negativa"></i>
         </p-iconField>
 
-        @if (nombre?.invalid && (nombre?.dirty || nombre?.touched)){
+        @if (name?.invalid && (name?.dirty || name?.touched)){
         <div class="text-danger">
 
-          @if (nombre?.hasError('required')){
+          @if (name?.hasError('required')){
             <p>Este campo es obligatorio</p>
           }
 
-          @if (nombre?.hasError('minlength')){
+          @if (name?.hasError('minlength')){
             <p>Como mínimo tu nombre debe tener 4 caracteres</p>
           }
 
-          @if (nombre?.hasError('maxlength')){
+          @if (name?.hasError('maxlength')){
             <p>Como máximo tu nombre puede tener 50 caracteres</p>
           }
         <!--            Aqui iran mas validaciones como que ese username no esta referenciado en la base de datos     -->
       </div>
         }
 
+
+        <p-fileUpload
+          name="file"
+          [multiple]="false"
+          accept="image/*"
+          (onSelect)="seleccionaFile($event)"
+          maxFileSize="1000000">
+          <ng-template pTemplate="content">
+            @if(selectedFile){
+              <ul>
+                <li>
+                  {{selectedFile.name}} - {{ selectedFile.size }} bytes
+                </li>
+              </ul>
+<!--              <ul>-->
+<!--                @for (file of uploadedFiles; track file.id){-->
+<!--                  <li>-->
+<!--                    {{ file.name }} - {{ file.size }} bytes-->
+<!--                  </li>-->
+<!--                }-->
+<!--              </ul>-->
+            }
+          </ng-template>
+        </p-fileUpload>
       </form>
       <div class="w-100 mt-5">
         <p-button (click)="registrar()" label="Registrarse" styleClass="w-100 rounded" size="small" icon="pi pi-user" [outlined]="true"></p-button>
