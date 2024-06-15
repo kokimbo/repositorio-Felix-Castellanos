@@ -1,4 +1,26 @@
-section {
-  height: 200vh;
-  background: linear-gradient(to bottom, #322d2d, #ee70eb);
+@import "bootstrap/scss/functions";
+@import "bootstrap/scss/mixins";
+@import "bootstrap/scss/variables";
+
+//section {
+//  height: 100vh;
+//  background: linear-gradient(to bottom, #322d2d, #ee70eb);
+//}
+
+::ng-deep main{
+  background-color: rgba($dark,0.95);
+  backdrop-filter: blur(5px);
+  .carousel-caption{
+    background-color: rgba($light,0.7);
+    border-radius: 15px;
+  }
 }
+
+h1{
+  color: darken(#f47cf6, 0%);
+}
+
+h2{
+  color: rgba(#f47cf6, 60%);
+}
+

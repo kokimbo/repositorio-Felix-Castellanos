@@ -1,6 +1,5 @@
 package com.prueba.api.Config;
 
-import com.prueba.api.entity.Role;
 import com.prueba.api.jwt.JwtAuthenticationFilter;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
@@ -8,7 +7,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationProvider;
-import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
@@ -31,10 +29,11 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authRequest ->
                         authRequest
                                 //.requestMatchers("/userProfilePics/**").permitAll()
-                                .requestMatchers("/auth/**").permitAll()
+                                .requestMatchers("/auth/register").permitAll()
+                                .requestMatchers("/auth/login").permitAll()
+                                .requestMatchers("/auth/update").permitAll()
                                 .requestMatchers(HttpMethod.GET).permitAll()
                                 .requestMatchers(HttpMethod.OPTIONS).permitAll()
-                                .requestMatchers("/api/v1/welcome").hasAuthority("ADMIN")
                                 .requestMatchers("/img/**").permitAll()
                                 .anyRequest().authenticated()
                 )

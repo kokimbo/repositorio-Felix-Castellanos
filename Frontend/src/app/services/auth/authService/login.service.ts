@@ -69,6 +69,23 @@ export class LoginService {
     );
   }
 
+  update(registro: RegistroInterface | any): Observable<any> {
+    return this.http.put<any>(environment.urlHost + '/auth/update', registro).pipe(
+      tap((userData) => {
+        const expiresAt = new Date(new Date().getTime() + 86400000);
+        this.cookieService.set('token', userData.token, expiresAt);
+        this.cookieService.set('user', JSON.stringify(userData.userSession));
+        this.sessionToken.next(userData.token);
+        this.currentSession.next(true);
+        this.sessionUser.next(userData.userSession);
+      }),
+      map((userData) => userData.token),
+      catchError(this.handleError)
+    );
+  }
+
+
+
   logout() {
     this.cookieService.delete('token');
     this.cookieService.delete('user');

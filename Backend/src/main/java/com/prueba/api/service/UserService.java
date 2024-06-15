@@ -10,4 +10,7 @@ public interface UserService {
     Optional<User> findById(String id);
     boolean delete(User user);
     Optional<User> findByUserEmail(String email);
+    boolean deleteByUsername(String username);
+    boolean existsByUsername(String username);
+    String findFotoByUsername(String username);
 }

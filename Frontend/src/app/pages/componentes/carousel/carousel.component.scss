@@ -1,0 +1,41 @@
+@import "bootstrap/scss/functions";
+@import "bootstrap/scss/mixins";
+@import "bootstrap/scss/variables";
+
+.image-container {
+  position: relative;
+  display: inline-block;
+
+  img {
+    display: block;
+  }
+
+
+  &::before,
+  &::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 200px;
+    pointer-events: none;
+  }
+
+  &::before {
+    top: 0;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0));
+  }
+
+  &::after {
+    bottom: 0;
+    background: linear-gradient(to top, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0));
+  }
+
+  @media (max-width: 700px) {
+    &::before,
+    &::after {
+      height: 75px;
+    }
+  }
+
+}

@@ -6,6 +6,7 @@ import com.prueba.api.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
@@ -39,5 +40,23 @@ public class UserServiceImpl implements UserService {
     @Override
     public Optional<User> findByUserEmail(String email) {
         return userRepository.findByEmail(email);
+    }
+
+    @Override
+    @Transactional
+    public boolean deleteByUsername(String username) {
+        userRepository.deleteByUsername(username);
+        userRepository.flush();
+        return true;
+    }
+
+    @Override
+    public boolean existsByUsername(String username) {
+        return userRepository.existsByUsername(username);
+    }
+
+    @Override
+    public String findFotoByUsername(String username) {
+        return userRepository.findFotoByUsername(username);
     }
 }

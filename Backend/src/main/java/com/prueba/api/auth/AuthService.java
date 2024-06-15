@@ -53,6 +53,25 @@ public class AuthService {
                 .build();
     }
 
+    public AuthResponse update(RegisterRequest request, String foto) {
+        User user = User.builder()
+                .username(request.getUsername())
+                .password(passwordEncoder.encode(request.getPassword()))
+                .name(request.getName())
+                .email(request.getEmail())
+                .foto(foto)
+                .role(Role.USER)
+                .build();
+
+        UserDTO userDTO = UserDTO.userToDto(user);
+
+        userService.saveUser(user);
+        return AuthResponse.builder()
+                .token(jwtService.getToken(user))
+                .userSession(userDTO)
+                .build();
+    }
+
     public AuthResponse login(LoginRequest request) {
         Optional<User> userOpt = userService.findByUser(request.username);
         if(userOpt.isEmpty()){

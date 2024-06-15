@@ -2,12 +2,12 @@ package com.prueba.api.authorized;
 
 import com.prueba.api.entity.User;
 import com.prueba.api.entity.dto.UserDTO;
+import com.prueba.api.fileUpload.FileRemover;
 import com.prueba.api.jwt.JwtService;
 import com.prueba.api.service.UserService;
 import lombok.RequiredArgsConstructor;
 import io.jsonwebtoken.Claims;
 import org.springframework.core.env.Environment;
-import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,7 +20,7 @@ import java.util.Optional;
 @RequestMapping("/api/v1/user")
 @CrossOrigin(origins = "${app.cors.allowedOrigin}")
 @RequiredArgsConstructor
-public class Authorized {
+public class UserController {
 
     private final UserService userService;
     private final JwtService jwtService;
@@ -56,40 +56,19 @@ public class Authorized {
     }
 
     //Cuando el delete es exitoso, tengo que devolver una respuesta, no un objeto
-    @DeleteMapping(value = "{idUser}")
-    public ResponseEntity<?> delete(@PathVariable String idUser) {
-        Optional<User> optUser = userService.findById(idUser);
-
-        if (optUser.isEmpty()){
-            Map<String, Object> response = new HashMap<>();
-            response.put("mensaje", env.getProperty("err.invalid.id") + " - Error delete");
-            response.put("user", null);
-            return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
+    @DeleteMapping(value = "{username}")
+    public ResponseEntity<?> delete(@PathVariable String username) {
+        Map<String, Object> response = new HashMap<>();
+        if (!userService.existsByUsername(username)){
+            response.put("error", "No se pudo realizar la accion");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
         }
-
-        User user = optUser.get();
-        userService.delete(user);
-        return new ResponseEntity<>(user, HttpStatus.OK);
+        String fotoBorrar = userService.findFotoByUsername(username);
+        response.put("OK", "Correcto");
+        userService.deleteByUsername(username);
+        FileRemover.deleteFile(fotoBorrar);
+        return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
-    @PutMapping()
-    public ResponseEntity<?> update(@RequestBody UserDTO userBody) {
-        Optional<User> optUser = userService.findById(userBody.getId());
 
-        if (optUser.isEmpty()){
-            Map<String, Object> response = new HashMap<>();
-            response.put("mensaje", env.getProperty("err.invalid.id") + " - Error update");
-            response.put("user", null);
-            return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
-        }
-
-        User user = optUser.get();
-
-        user.setEmail(userBody.getEmail());
-        user.setName(userBody.getName());
-        user.setUsername(userBody.getUsername());
-
-        userService.saveUser(user);
-        return new ResponseEntity<>(user, HttpStatus.OK);
-    }
 }

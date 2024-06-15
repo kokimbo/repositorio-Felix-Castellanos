@@ -29,7 +29,6 @@ public class JwtService {
         return Jwts
                 .builder()
                 .setClaims(extraClaims)
-                //.claim("user", user)  //Pasar al token el objeto entero
                 .claim("idUser", user.getId())
                 .setSubject(user.getUsername())
                 .setIssuedAt(new Date(System.currentTimeMillis()))
@@ -37,6 +36,7 @@ public class JwtService {
                 .signWith(getKey(), SignatureAlgorithm.HS256)
                 .compact();
     }
+    //.claim("user", user)  //Pasar al token el objeto entero
 
     private Key getKey() {
         byte[] keyBytes = Decoders.BASE64.decode(KEY);
@@ -61,7 +61,7 @@ public class JwtService {
     }
 
     public <T> T getClaim(String token, Function<Claims, T> claimsResolver){
-        final Claims claims= getClaims(token);
+        final Claims claims = getClaims(token);
         return claimsResolver.apply(claims);
     }
 

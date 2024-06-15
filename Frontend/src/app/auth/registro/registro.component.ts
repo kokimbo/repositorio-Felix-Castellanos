@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ButtonModule} from "primeng/button";
 import {CardModule} from "primeng/card";
 import {FormBuilder, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
@@ -38,13 +38,19 @@ import {FileSelectEvent, FileUploadEvent, FileUploadModule} from "primeng/fileup
   styleUrl: './registro.component.scss'
 })
 
-export class RegistroComponent {
+export class RegistroComponent implements OnInit{
 
   selectedFile: File | null = null;
 
   constructor(private formBuilder: FormBuilder, private router: Router, private loginService: LoginService, private messageService: MessageService) {
     if (loginService.isAuthenticated()){
       router.navigate(['/landing'])
+    }
+  }
+
+  ngOnInit(): void {
+    if (this.loginService.isAuthenticated()){
+      this.router.navigate(['/landing'])
     }
   }
 
@@ -101,7 +107,7 @@ export class RegistroComponent {
         name: this.registrarForm.get('name')?.value,
         email: this.registrarForm.get('email')?.value,
       };
-      
+
       formData.append('registro', JSON.stringify(registroData));
       this.loginService.registro(formData).subscribe(
         {
@@ -131,4 +137,6 @@ export class RegistroComponent {
       this.selectedFile = file;
     }
   }
+
+
 }
