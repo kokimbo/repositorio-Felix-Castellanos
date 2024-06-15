@@ -1,8 +1,12 @@
 package com.prueba.api.fileUpload;
 
+import org.springframework.http.HttpStatus;
+
 import java.io.File;
 
 public class FileRemover {
+    public static final String FOTO_DEFAULT = "Thunderdome_logo.jpg";
+
     public static void deleteFile(String fileName) {
         String folderPath = System.getProperty("user.dir") + "/userProfilePics/";
         String filePath = folderPath + fileName;

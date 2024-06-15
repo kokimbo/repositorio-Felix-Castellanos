@@ -114,7 +114,6 @@ export class UserPageComponent implements OnInit{
       this.loginService.update(formData).subscribe(
         {
           next: (data) => {
-            console.log(data)
           },
           error: (error) => {
             this.showError("Ha ocurrido un error");
@@ -136,7 +135,6 @@ export class UserPageComponent implements OnInit{
     console.log(file.name)
     if (file) {
       this.selectedFile = file;
-      console.log(this.selectedFile)
     }
     const reader = new FileReader();
     reader.onload = () => {

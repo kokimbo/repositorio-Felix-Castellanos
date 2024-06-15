@@ -65,7 +65,9 @@ public class UserController {
         }
         String fotoBorrar = userService.findFotoByUsername(username);
         response.put("OK", "Correcto");
-        userService.deleteByUsername(username);
+        if(!FileRemover.FOTO_DEFAULT.equals(fotoBorrar)){
+            userService.deleteByUsername(username);
+        }
         FileRemover.deleteFile(fotoBorrar);
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }

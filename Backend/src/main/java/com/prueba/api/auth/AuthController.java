@@ -1,6 +1,7 @@
 package com.prueba.api.auth;
 
 import com.google.gson.Gson;
+import com.prueba.api.fileUpload.FileRemover;
 import com.prueba.api.fileUpload.FileUpload;
 import com.prueba.api.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -54,7 +55,7 @@ public class AuthController {
                                                @RequestParam(name = "usernameSession") String username)
     {
         AuthResponse authResponse = null;
-
+        String fotoAntigua = userService.findFotoByUsername(username);
         if(userService.deleteByUsername(username)){
             String fotoDB = "";
             Gson gson = new Gson();
@@ -62,6 +63,9 @@ public class AuthController {
 
             if (file!=null){
                 fotoDB = FileUpload.uploadFile(file);
+                if (!FileRemover.FOTO_DEFAULT.equals(fotoAntigua)){
+                    FileRemover.deleteFile(fotoAntigua);
+                }
             }
 
             authResponse = authService.update(registro, fotoDB);

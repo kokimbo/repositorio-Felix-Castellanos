@@ -14,6 +14,14 @@
     background-color: rgba($light,0.7);
     border-radius: 15px;
   }
+  .img-section{
+    width: clamp(75px, 20%, 170px);
+    height: auto;
+  }
+
+  ::ng-deep  p{
+    font-size: clamp(0.85rem, 2.5vw, 2.5rem);
+  }
 }
 
 h1{

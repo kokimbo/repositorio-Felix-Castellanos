@@ -3,13 +3,16 @@
   <p class="display-6 rounded-3 fw-bolder mb-0 py-3">Bienvenido {{sessionUser?.name}} aqui podras editar tu perfil</p>
 </div>
 <div class="container rounded  mt-5 mb-5 position-relative">
+  <img class="position-absolute logo-form" src="assets/logo.png" alt="Error" width="70" height="70">
   <div class="row bg-dark border rounded-4">
     <div class="col-md-4 border-right">
       <div class="d-flex flex-column align-items-center text-center p-3 py-5">
         @if (this.imageUrl){
-          <img class="rounded-circle mt-5" [src]="imageUrl" height="80" width="80">
-        } @else {
-          <img class="rounded-circle mt-5" ngSrc="{{environment.urlHost}}/{{sessionUser?.foto}}" height="80" width="80">
+          <img class="rounded-circle mt-5" [src]="imageUrl" height="100" width="100">
+        } @else if(sessionUser?.foto){
+          <img class="rounded-circle mt-5" ngSrc="{{environment.urlHost}}/{{sessionUser?.foto}}" height="100" width="100">
+        }@else{
+          <img class="rounded-circle mt-5" ngSrc="{{environment.urlHost}}/Thunderdome_logo.jpg" height="100" width="100">
         }
         <span class="fw-bolder">{{name?.value}}</span>
         <span class="p-text-secondary">{{email?.value}}</span>
