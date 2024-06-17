@@ -1,15 +1,20 @@
+<script src="../data-view/data-view.component.ts"></script>
 <p-galleria
-  [value]="images"
+  [value]="imagesEjer ? imagesEjer : images"
   [numVisible]="5"
   [circular]="true"
   [showItemNavigators]="true"
   [showThumbnails]="false"
   [responsiveOptions]="responsiveOptions"
   [autoPlay]="true"
-  [containerStyle]="{ 'max-width': '1920px' }">
+  [containerStyle]="imagesEjer ? { 'max-width': '300px', 'min-height': '400px' } : { 'max-width': '1920px' }">
   <ng-template pTemplate="item" let-item>
     <div class="image-container">
-      <img [src]="item.itemImageSrc" style="width: 100%; display: block;" />
+      @if (imagesEjer){
+        <img [src]=" imagesEjer ? 'http://localhost:8000/fotosEjercicios/'+item : item.itemImageSrc" style="width: 100%; min-height: 100%; display: block;" width="300" height="450"/>
+      } @else {
+        <img [src]=" imagesEjer ? 'http://localhost:8000/fotosEjercicios/'+item : item.itemImageSrc" style="width: 100%; min-height: 100%; display: block;"/>
+      }
     </div>
   </ng-template>
 </p-galleria>

@@ -1,6 +1,6 @@
 import { Inject, Injectable } from '@angular/core';
 import { LoginInterface } from "./login-interface";
-import { HttpClient, HttpErrorResponse } from "@angular/common/http";
+import {HttpClient, HttpErrorResponse, HttpHeaders} from "@angular/common/http";
 import { catchError, Observable, throwError, BehaviorSubject, tap, map } from "rxjs";
 import { UserInterface } from "../../user/user-interface";
 import { environment } from "../../../../environments/environment";
@@ -52,6 +52,13 @@ export class LoginService {
       }),
       catchError(this.handleError)
     );
+  }
+
+  get headerWithToken(): HttpHeaders{
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.userToken}`
+    });
+    return headers;
   }
 
   registro(registro: RegistroInterface | any): Observable<any> {

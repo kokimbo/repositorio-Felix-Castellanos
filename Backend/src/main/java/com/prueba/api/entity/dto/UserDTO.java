@@ -29,4 +29,14 @@ public class UserDTO {
                 .foto(user.getFoto())
                 .build();
     }
+
+    public static User dtoToUser(UserDTO user){
+        return User.builder()
+                .id(user.getId())
+                .username(user.getUsername())
+                .email(user.getEmail())
+                .name(user.getName())
+                .foto(user.getFoto())
+                .build();
+    }
 }

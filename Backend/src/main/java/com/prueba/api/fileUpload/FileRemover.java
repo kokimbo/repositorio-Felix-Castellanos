@@ -8,7 +8,7 @@ public class FileRemover {
     public static final String FOTO_DEFAULT = "Thunderdome_logo.jpg";
 
     public static void deleteFile(String fileName) {
-        String folderPath = System.getProperty("user.dir") + "/userProfilePics/";
+        String folderPath = System.getProperty("user.dir") + "/fotos/fotosUsuario";
         String filePath = folderPath + fileName;
 
         File file = new File(filePath);

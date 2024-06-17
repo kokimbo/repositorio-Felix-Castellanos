@@ -1,0 +1,43 @@
+<script src="../landing/landing.component.ts"></script>@if (ejercicio){
+
+  <div class="main">
+    <main class="container py-5 px-4 px-xl-0 d-flex justify-content-center">
+      <div class="">
+        <div class="card-body">
+          <h1 class="card-title mb-3">{{ejercicio.nombre}}</h1>
+          <h6 class="card-subtitle">EJERCICIO {{ejercicio.dificultad.nomDificultad}}</h6>
+          <p class="p-text-secondary" routerLink="/landing">VOLVER ATRAS</p>
+          <div class="row">
+            <div class="col-lg-5 col-md-5 col-sm-6 pt-3">
+              <div class="white-box text-center">
+                <app-carousel [imagesEjer]="ejercicio?.fotos || []"></app-carousel>
+              </div>
+            </div>
+            <div class="col-lg-7 col-md-7 col-sm-6">
+              <h4 class="box-title mt-5">Descripcion de {{ejercicio.nombre}}</h4>
+              <p><i class="pi pi-check-circle me-2"></i> {{ejercicio.descripcion}}</p>
+              <h2 class="mt-5">
+
+              </h2>
+              <p-button label="Proximamente" [outlined]="true" size="small" styleClass="rounded-3 mt-2"/>
+              <h3 class="box-title mt-5">Creado por: {{ejercicio.user.username}}</h3>
+              <div class="d-flex justify-content-between">
+                <ul class="list-unstyled">
+                  <h4 class="mt-4">Datos del usuario:</h4>
+                  <li class="h6">Email: {{ejercicio.user.email}}</li>
+                  <li class="h6">Nombre: {{ejercicio.user.name}}</li>
+                </ul>
+                <p-chip
+                  styleClass="me-4 shadow-lg"
+                  label="{{ejercicio.user.username}}"
+                  [image]="ejercicio.user.foto ? environment.urlFotosUsuario + ejercicio.user.foto : environment.urlFotosUsuario+'Thunderdome_logo.jpg'"
+                  alt="Avatar image"
+                  pBadge value="4" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+}

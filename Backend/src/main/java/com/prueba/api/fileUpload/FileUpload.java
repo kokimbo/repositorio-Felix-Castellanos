@@ -18,7 +18,7 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class FileUpload {
 
-    private static final String UPLOAD_DIR = "userProfilePics/";
+    private static final String UPLOAD_DIR = "fotos/fotosUsuario/";
 
     public static String uploadFile(MultipartFile file) {
         if (file.isEmpty()) {

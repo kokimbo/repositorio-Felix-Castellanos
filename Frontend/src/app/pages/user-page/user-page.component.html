@@ -10,9 +10,9 @@
         @if (this.imageUrl){
           <img class="rounded-circle mt-5" [src]="imageUrl" height="100" width="100">
         } @else if(sessionUser?.foto){
-          <img class="rounded-circle mt-5" ngSrc="{{environment.urlHost}}/{{sessionUser?.foto}}" height="100" width="100">
+          <img class="rounded-circle mt-5" ngSrc="{{environment.urlFotosUsuario}}{{sessionUser?.foto}}" height="100" width="100">
         }@else{
-          <img class="rounded-circle mt-5" ngSrc="{{environment.urlHost}}/Thunderdome_logo.jpg" height="100" width="100">
+          <img class="rounded-circle mt-5" ngSrc="{{environment.urlFotosUsuario}}Thunderdome_logo.jpg" height="100" width="100">
         }
         <span class="fw-bolder">{{name?.value}}</span>
         <span class="p-text-secondary">{{email?.value}}</span>

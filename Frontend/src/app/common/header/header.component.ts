@@ -11,6 +11,7 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import {ToastModule} from "primeng/toast";
 import {ChipModule} from "primeng/chip";
 import {environment} from "../../../environments/environment";
+import {EjercicioService} from "../../services/ejercicio/ejercicio.service";
 
 @Component({
   selector: 'app-header',
@@ -23,15 +24,14 @@ import {environment} from "../../../environments/environment";
 export class HeaderComponent implements OnInit{
 
   isLogged: Boolean = false;
+  count: number = 0;
+  countString: string = "";
   userData?: String;
   protected sessionUser?: UserInterface | null
 
-  constructor(private loginService: LoginService, private confirmationService: ConfirmationService, private messageService: MessageService, private router: Router) { }
+  constructor(private ejercicioService: EjercicioService, private loginService: LoginService, private confirmationService: ConfirmationService, private messageService: MessageService, private router: Router) {
 
-  // ngOnDestroy(): void {
-  //   this.authService.currentSession.unsubscribe();
-  //   this.authService.currentSessionData.unsubscribe()
-  // }
+  }
 
   confirmar() {
     this.confirmationService.confirm({
@@ -50,28 +50,44 @@ export class HeaderComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    this.loginService.currentSession.subscribe(
-      {
-        next:(currentSession) => {
-          this.isLogged = currentSession;
+    this.loginService.currentSession.subscribe({
+      next: (currentSession) => {
+        this.isLogged = currentSession;
+        if (this.isLogged && this.sessionUser?.id) {
+          this.fetchExerciseCount(this.sessionUser.id);
         }
       }
-    )
+    });
 
-    this.loginService.sessionData.subscribe(
-      {
-        next:(sessionData) => {
-          this.userData = sessionData;
+    this.loginService.sessionData.subscribe({
+      next: (sessionData) => {
+        this.userData = sessionData;
+      }
+    });
+
+    this.loginService.sessionUser.subscribe({
+      next: (sessionUser) => {
+        this.sessionUser = sessionUser;
+        if (this.isLogged && this.sessionUser?.id) {
+          this.fetchExerciseCount(this.sessionUser.id);
         }
       }
-    )
-    this.loginService.sessionUser.subscribe(
-      {
-        next:(sessionUser) => {
-          this.sessionUser = sessionUser;
-        }
+    });
+
+    if (this.loginService.isAuthenticated() && this.sessionUser?.id) {
+      this.fetchExerciseCount(this.sessionUser.id);
+    }
+  }
+
+  private fetchExerciseCount(userId: string): void {
+    this.ejercicioService.getCountEjercicios(userId).subscribe({
+      next: (count) => {
+        this.count = count;
+      },
+      error: (err) => {
+        console.error('Error fetching exercise count:', err);
       }
-    )
+    });
   }
 
   protected readonly environment = environment;

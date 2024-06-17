@@ -13,11 +13,6 @@ export class UserService {
 
   constructor(private http: HttpClient, private authService: LoginService, private router: Router) { }
 
-  getUser(id: number): Observable<UserInterface> {
-    return this.http.get<UserInterface>(environment.urlApiUrl+"user/"+id).pipe(
-      catchError(this.handleError)
-    )
-  }
 
   deleteUser(username: string): Observable<any> {
     return this.http.delete<UserInterface>(environment.urlApiUrl+`user/${username}` ).pipe(

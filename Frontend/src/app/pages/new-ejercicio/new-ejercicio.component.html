@@ -1,0 +1,60 @@
+<script src="../user-page/user-page.component.ts"></script>
+<section class="get-in-touch py-5">
+  <h1 class="title">Nuevo ejercicio</h1>
+  <form [formGroup]="ejercicioForm"  class="contact-form row">
+    <div class="form-field col-lg-6">
+      <p-iconField iconPosition="left">
+        <p-inputIcon styleClass="pi pi-at"/>   <!--email-->
+        <input formControlName="nombre" type="text" pInputText placeholder="Nombre" />
+        <i class="pi pi-check-circle alerta-positiva"></i>
+        <i class="pi pi-exclamation-circle alerta-negativa"></i>
+      </p-iconField>
+    </div>
+    <div class="form-field col-lg-6 ">
+      <p-multiSelect
+        [options]="dificultades"
+        formControlName="dificultad"
+        optionLabel="nomDificultad"
+        placeholder="Seleccione una dificultad"/>
+    </div>
+    <div class="form-field col-lg-12 ">
+      <p-fileUpload
+        name="file"
+        [multiple]="true"
+        accept="image/*"
+        (onSelect)="onUpload($event)"
+        maxFileSize="1000000">
+        <ng-template pTemplate="content">
+          <ul>
+            @for (file of selectedFile; track $index){
+              <li>
+                {{ file.name }} - {{ file.size }} bytes
+              </li>
+            }
+          </ul>
+        </ng-template>
+      </p-fileUpload>
+    </div>
+
+    <div class="form-field col-lg-12">
+      <p-floatLabel>
+        <textarea
+          id="float-input"
+          rows="3"
+          cols="30"
+          formControlName="descripcion"
+          pInputTextarea>
+        </textarea>
+        <label for="float-input">Descipcion del ejercicio</label>
+      </p-floatLabel>
+    </div>
+    <div class="form-field col-lg-6">
+      <div class="text-right me-4 me-lg-2"><p-button (onClick)="crear()" label="Crear ejercicio"  size="small" styleClass="shadow-sm rounded" [outlined]="true"></p-button></div>
+    </div>
+
+    <div class="form-field col-lg-6">
+      <div class="text-right me-4 me-lg-2"><p-button  label="Volver atras" routerLink="/landing"  size="small" styleClass="shadow-sm rounded" [outlined]="false"></p-button></div>
+    </div>
+  </form>
+</section>
+

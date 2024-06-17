@@ -1,3 +1,4 @@
+<script src="../../pages/componentes/carousel/carousel.component.ts"></script>
 <header class="d-flex flex-column flex-md-row flex-sm-column  justify-content-between align-items-center px-5  sticky-top z-3">
   <div class="d-flex align-items-center">
     <a href="#">
@@ -12,24 +13,34 @@
     </div>
   } @else {
     <div class="mb-3 mb-md-0">
+      <p-button routerLink="/newEjercicio" styleClass="rounded-pill me-2" label="Ejercicio" icon="pi pi-plus" size="small" />
+      @if (this.count) {
+        <p-button routerLink="/"
+          styleClass="rounded-3 me-3"
+          label="Ejercicios"
+          icon="pi pi-users"
+          badge="{{count}}"
+          badgeClass="p-badge-contrast"
+          outlined="true"
+          size="small"
+        />
+      }
       <a routerLink="/userPage">
-
         @if (sessionUser?.foto){
           <p-chip
             styleClass="me-4 shadow-lg"
             label="{{sessionUser?.username}}"
-            image="{{environment.urlHost}}/{{sessionUser?.foto}}"
+            image="{{environment.urlFotosUsuario}}{{sessionUser?.foto}}"
             alt="Avatar image"
-            pBadge value="4" />
+             />
         } @else {
           <p-chip
             styleClass="me-4 shadow-lg"
             label="{{sessionUser?.username}}"
-            image="{{environment.urlHost}}/Thunderdome_logo.jpg"
+            image="{{environment.urlFotosUsuario}}Thunderdome_logo.jpg"
             alt="Avatar image"
-            pBadge value="4" />
+             />
         }
-
       </a>
       <p-button label="Cerrar sesion" (click)="confirmar()" [badgeClass]="'dark'" size="small" styleClass="shadow-sm rounded-pill special-button" [outlined]="true"></p-button>
     </div>
@@ -39,7 +50,6 @@
 <p-toast />
 <p-confirmDialog #cd>
   <ng-template pTemplate="headless" let-message>
-
     <div class="d-flex flex-column align-items-center p-5 bg-dark border-opacity-25 border-secondary rounded">
       <div class="rounded-circle d-flex justify-content-center align-items-center" style="height: 6rem; width: 6rem; background-color: #c298d8">
         <i class="pi pi-question" style="font-size: 3rem; color: black;"></i>

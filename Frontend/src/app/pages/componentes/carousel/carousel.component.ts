@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, Input} from '@angular/core';
 import { GalleriaModule } from 'primeng/galleria';
 import {StyleClassModule} from "primeng/styleclass";
 
@@ -10,6 +10,8 @@ import {StyleClassModule} from "primeng/styleclass";
   styleUrls: ['./carousel.component.scss']
 })
 export class CarouselComponent {
+  @Input() imagesEjer!: string[];
+
   images: any[] = [
     {
       itemImageSrc: 'assets/muerto.webp',

@@ -1,12 +1,11 @@
 package com.prueba.api.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-@Data
+@Getter
+@Setter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
@@ -19,6 +18,7 @@ public class FotosEjercicio {
     private String foto;
 
     @ManyToOne
+    @JsonIgnoreProperties("fotosEjercicio")
     @JoinColumn(name = "ejercicio_id")
     private Ejercicio ejercicio;
 }

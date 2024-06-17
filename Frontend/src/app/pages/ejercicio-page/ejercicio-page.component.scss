@@ -1,0 +1,36 @@
+@import "bootstrap/scss/functions";
+@import "bootstrap/scss/mixins";
+@import "bootstrap/scss/variables";
+
+
+.card {
+  margin-bottom: 30px;
+}
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  word-wrap: break-word;
+
+  background-clip: border-box;
+  border: 0 solid transparent;
+  border-radius: 0;
+}
+.card .card-subtitle {
+  font-weight: 300;
+  margin-bottom: 10px;
+  color: #8898aa;
+}
+.table-product.table-striped tbody tr:nth-of-type(odd) {
+
+}
+.table-product td{
+  border-top: 0px solid #dee2e6 !important;
+  color: #728299!important;
+}
+
+::ng-deep .main{
+  background-color: rgba($dark,0.7);
+  backdrop-filter: blur(3px);
+}

@@ -9,6 +9,7 @@ import com.prueba.api.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,13 +23,13 @@ public class EjercicioServiceImpl implements EjercicioService {
 
 
     @Override
-    public boolean saveUpdate(Ejercicio ejercicio) {
+    public Ejercicio saveUpdate(Ejercicio ejercicio) {
         try {
-            ejercicioRepository.save(ejercicio);
-            return true;
+            Ejercicio ejer = ejercicioRepository.save(ejercicio);
+            return ejer;
         }catch (DataAccessException e){
             System.out.println(e.getMessage());
-            return false;
+            return null;
         }
     }
 
@@ -54,6 +55,7 @@ public class EjercicioServiceImpl implements EjercicioService {
     }
 
     @Override
+    @Transactional
     public boolean deleteById(String idEjercicio) {
         try {
             ejercicioRepository.deleteById(idEjercicio);
@@ -67,5 +69,15 @@ public class EjercicioServiceImpl implements EjercicioService {
     @Override
     public ArrayList<Ejercicio> findAll() {
         return ejercicioRepository.findAll();
+    }
+
+    @Override
+    public Integer countEjeciciosById(String idUser) {
+        return ejercicioRepository.countEjeciciosById(idUser);
+    }
+
+    @Override
+    public List<Ejercicio> findAllByIdUser(String idUser) {
+        return ejercicioRepository.findAllByUser_Id(idUser);
     }
 }

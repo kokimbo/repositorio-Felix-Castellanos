@@ -1,14 +1,16 @@
 package com.prueba.api.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonIgnoreType;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.ArrayList;
+import java.util.List;
 
-@Data
+@Getter
+@Setter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
@@ -22,6 +24,7 @@ public class Dificultad {
         @Column(nullable = false, unique = true)
         private String nomDificultad;
 
-        @OneToMany(mappedBy = "dificultad")
-        private ArrayList<Ejercicio> ejercicios;
+        @JsonIgnoreProperties("dificultad")
+        @OneToMany(mappedBy = "dificultad", fetch = FetchType.EAGER)
+        private List<Ejercicio> ejercicios = new ArrayList<>();
 }

@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -17,5 +18,10 @@ public class DificultadServiceImpl implements DificultadService {
     @Override
     public List<Dificultad> findAll() {
         return dificultadRepository.findAll();
+    }
+
+    @Override
+    public Optional<Dificultad> findByNombre(String nombre) {
+        return dificultadRepository.findByNomDificultad(nombre);
     }
 }

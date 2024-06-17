@@ -1,0 +1,64 @@
+<div class="d-flex justify-content-center">
+  <span class="fw-bolder text-center rounded bg-purple text-dark py-2 px-3 my-5">Todos los ejercicios</span>
+</div>
+<div class="container mb-4">
+    <p-dataView #dv [value]="ejercicios" [rows]="2" [paginator]="true" pageLinkSize="1" paginatorPosition="both" styleClass="mb-4 border">
+        <ng-template pTemplate="list">
+            <div class="row no-gutters">
+              @for(ejercicio of ejercicios; track $index){
+                <div class="col-12 " >
+                  <div [classList]="ejercicio.user.id===sessionUser?.id ? 'd-flex flex-column flex-sm-row align-items-sm-center py-5 px-4 gap-3 border border-success' : 'd-flex flex-column flex-sm-row align-items-sm-center py-5 px-4 gap-3 border-bottom'">
+                    <div class="col-md-2 position-relative">
+                      <img class="d-block mx-auto rounded w-100" [src]="environment.urlFotosEjercicios + ejercicio?.fotos?.[0]" />
+                      <p-tag [value]="ejercicio.dificultad.nomDificultad" [severity]="getDificultad(ejercicio)" class="position-absolute" [style.left.px]="4" [style.top.px]="4" />
+                    </div>
+                    <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center flex-grow-1 gap-4">
+                      <div class="d-flex flex-row flex-md-column justify-content-between align-items-start gap-2">
+                        <div>
+                          <span class="font-weight-medium text-secondary small">{{ejercicio.dificultad.nomDificultad}}</span>
+                          <div class="h5 font-weight-medium mt-2">{{ejercicio.nombre}}</div>
+                        </div>
+                        <div class="bg-light p-1 rounded-circle">
+                          <div class="bg-white d-flex align-items-center gap-2 justify-content-center py-1 px-2 rounded-pill shadow-sm">
+                            <span class="text-dark fw-bolder font-weight-medium small">4</span>
+                            <i class="pi pi-star-fill text-warning"></i>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="d-flex flex-column align-items-md-end gap-5">
+                        <div class="d-flex align-items-center gap-3">
+
+                          @if (ejercicio.user.id===sessionUser?.id){
+                            <span class="h6 fw-bolder text-light">YO: </span>
+                          } @else {
+                            <span class="h6 fw-bolder text-light">Creado por: </span>
+                          }
+                          <a [routerLink]="ejercicio.user.id===sessionUser?.id ? '/userPage' : '/landing'"> <!--En /landing tiene que ser para ver el perfil del usuario-->
+                            <p-chip
+                              styleClass="me-4 shadow-lg"
+                              label="{{ejercicio.user.username}}"
+                              [image]="ejercicio.user.foto ? environment.urlFotosUsuario + ejercicio.user.foto : environment.urlFotosUsuario + 'Thunderdome_logo.jpg'"
+                              alt="Avatar image"/>
+                          </a>
+
+                        </div>
+                        <div class="d-flex flex-row-reverse flex-md-row gap-2">
+
+                          @if (ejercicio.user.id===sessionUser?.id){
+                            <p-button (onClick)="deleteInDataView(ejercicio?.id ?? '')" icon="pi pi-trash" [outlined]="true" styleClass="rounded-3"/>
+                          } @else {
+
+                          }
+
+
+                          <p-button icon="pi pi-eye" [routerLink]="['/ejercicioPage', ejercicio.id]"  class="flex-grow-1 flex-md-grow-0 white-space-nowrap" styleClass="rounded-3" label="Ver ejercicio"/>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              }
+            </div>
+        </ng-template>
+    </p-dataView>
+</div>

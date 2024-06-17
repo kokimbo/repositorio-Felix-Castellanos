@@ -1,15 +1,15 @@
 package com.prueba.api.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
-@Data
+@Getter
+@Setter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
@@ -23,15 +23,19 @@ public class Ejercicio {
     @Column(nullable = false, unique = true)
     private String nombre;
     private String descripcion;
+    private Date fechaCreacion;
 
-    @OneToMany(mappedBy = "ejercicio", cascade = CascadeType.PERSIST)
-    private ArrayList<FotosEjercicio> fotosEjercicio;
+    @OneToMany(mappedBy = "ejercicio", cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, fetch = FetchType.EAGER)
+    @JsonIgnoreProperties("ejercicio")
+    private List<FotosEjercicio> fotosEjercicio = new ArrayList<>();
 
     @ManyToOne
     @JoinColumn(name = "user_id")
+    @JsonIgnoreProperties("ejercicios")
     private User user;
 
     @ManyToOne
+    @JsonIgnoreProperties("ejercicios")
     @JoinColumn(name = "dificultad_id", nullable = false)
     private Dificultad dificultad;
 }

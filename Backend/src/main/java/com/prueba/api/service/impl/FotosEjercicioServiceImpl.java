@@ -29,4 +29,9 @@ public class FotosEjercicioServiceImpl implements FotosEjercicioService {
             return false;
         }
     }
+
+    @Override
+    public void save(FotosEjercicio fotosEjercicio) {
+        fotosEjercicioRepository.save(fotosEjercicio);
+    }
 }

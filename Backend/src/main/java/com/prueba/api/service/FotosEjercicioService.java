@@ -7,4 +7,5 @@ import java.util.List;
 public interface FotosEjercicioService {
     List<FotosEjercicio> findAllByEjercicio_Id(String id);
     boolean deleteAllByEjercicio_Id(String id);
+    void save(FotosEjercicio fotosEjercicio);
 }

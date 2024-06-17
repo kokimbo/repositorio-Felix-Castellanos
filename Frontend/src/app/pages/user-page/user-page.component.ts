@@ -160,8 +160,6 @@ export class UserPageComponent implements OnInit{
             },
             complete: () => {
               console.log('Update completado');
-              this.loginService.logout();
-              this.router.navigateByUrl('/login');
               this.updateForm.reset();
             }
           }
