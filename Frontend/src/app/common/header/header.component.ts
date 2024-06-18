@@ -12,6 +12,7 @@ import {ToastModule} from "primeng/toast";
 import {ChipModule} from "primeng/chip";
 import {environment} from "../../../environments/environment";
 import {EjercicioService} from "../../services/ejercicio/ejercicio.service";
+import {CountService} from "../../services/user/count.service";
 
 @Component({
   selector: 'app-header',
@@ -29,7 +30,7 @@ export class HeaderComponent implements OnInit{
   userData?: String;
   protected sessionUser?: UserInterface | null
 
-  constructor(private ejercicioService: EjercicioService, private loginService: LoginService, private confirmationService: ConfirmationService, private messageService: MessageService, private router: Router) {
+  constructor(private countService: CountService, private ejercicioService: EjercicioService, private loginService: LoginService, private confirmationService: ConfirmationService, private messageService: MessageService, private router: Router) {
 
   }
 
@@ -74,6 +75,12 @@ export class HeaderComponent implements OnInit{
       }
     });
 
+    this.countService.contador$.subscribe(
+      {
+        next: (count) => {this.count = count}
+      }
+    )
+
     if (this.loginService.isAuthenticated() && this.sessionUser?.id) {
       this.fetchExerciseCount(this.sessionUser.id);
     }
@@ -83,6 +90,7 @@ export class HeaderComponent implements OnInit{
     this.ejercicioService.getCountEjercicios(userId).subscribe({
       next: (count) => {
         this.count = count;
+        this.countService.contador.next(count);
       },
       error: (err) => {
         console.error('Error fetching exercise count:', err);

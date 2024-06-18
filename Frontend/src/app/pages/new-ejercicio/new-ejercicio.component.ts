@@ -14,6 +14,7 @@ import {Dificultad} from "../../modelos/dificultad";
 import {FileSelectEvent, FileUploadModule, UploadEvent} from "primeng/fileupload";
 import {User} from "../../modelos/user";
 import {UserInterface} from "../../services/user/user-interface";
+import {CountService} from "../../services/user/count.service";
 
 @Component({
   selector: 'app-new-ejercicio',
@@ -40,7 +41,7 @@ export class NewEjercicioComponent implements OnInit{
   userData?: String;
   protected sessionUser?: UserInterface | null
 
-  constructor(private formBuilder: FormBuilder, private authService: LoginService, private router: Router, private ejercicioService: EjercicioService, private dificultadService: DificultadService) {
+  constructor(private countService: CountService, private formBuilder: FormBuilder, private authService: LoginService, private router: Router, private ejercicioService: EjercicioService, private dificultadService: DificultadService) {
     if (!authService.isAuthenticated()){
       router.navigate(['/login'])
     }
@@ -148,6 +149,7 @@ export class NewEjercicioComponent implements OnInit{
 
           },
           complete: () => {
+            this.countService.incrementar();
             console.log('Crear ejercicio completado');
             this.router.navigateByUrl('/landing');
             this.ejercicioForm.reset();

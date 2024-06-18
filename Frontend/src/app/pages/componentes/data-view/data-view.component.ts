@@ -11,6 +11,7 @@ import {LoginService} from "../../../services/auth/authService/login.service";
 import {Router, RouterLink} from "@angular/router";
 import {UserInterface} from "../../../services/user/user-interface";
 import {PaginatorModule} from "primeng/paginator";
+import {CountService} from "../../../services/user/count.service";
 
 @Component({
   selector: 'app-data-view',
@@ -37,11 +38,12 @@ export class DataViewComponent implements OnInit{
   userData?: String;
   protected sessionUser?: UserInterface | null
 
-  constructor(private ejercicioService: EjercicioService, private authService: LoginService, private router: Router) {}
+  constructor(private countService: CountService, private ejercicioService: EjercicioService, private authService: LoginService, private router: Router) {}
 
   deleteInDataView(id: string): void {
     this.ejercicioService.removeEjercicio(id).subscribe(() => {
       this.ejercicios = this.ejercicios.filter(ejercicio => ejercicio.id !== id);
+      this.countService.decrementar();
     });
   }
 
